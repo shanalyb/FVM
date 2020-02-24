@@ -36,5 +36,4 @@ function concentration_2d(c_0, N_x, N_y, h_x, h_y, u_x, u_y, delta_t)
     end
 
     c = c_0 - (u_y1 * dif_c_x1 + u_x1 * dif_c_y1) * delta_t
-    c
 end
