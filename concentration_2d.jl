@@ -1,15 +1,3 @@
-include("gradient.jl")
-
-
-#N_x = 100; N_y = 100
-#L_x = 10; L_y = 10 #Расстояние (м)
-#h_x = L_x / N_x; h_y = L_y / N_y
-
-#c_0 = zeros(N_x + 1, N_y + 1)
-#for i = 1:N_x+1
-#    c_0[i,1] = 1
-#end
-
 function concentration_2d(c_0, N_x, N_y, h_x, h_y, u_x, u_y, delta_t)
     dif_c_x = grad2D_x(c_0, h_x)
     dif_c_y = grad2D_y(c_0, h_y)
