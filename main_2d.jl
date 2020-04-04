@@ -8,8 +8,8 @@ include("k_generator.jl")
 include("upscaling.jl")
 include("pressure.jl")
 include("velocity.jl")
-N_x = 20
-N_y = 20
+N_x = 50
+N_y = 50
 L_x = 10 #Расстояние (м)
 L_y = 10 #Расстояние (м)
 P_left = 4.0
@@ -24,8 +24,8 @@ dy = 10 / N_y
 mu = 10^(-3)
 h = 0.01
 #k = 0.5
-x = 3
-y = 3
+x = 6
+y = 6
 #Генерация проницаемости
 #--------------------------------
 range_1 = 3
@@ -48,10 +48,10 @@ k_geometric = geometric_average(k, x, y)
 k_power = power_average(k, x, y)
 #--------------------------------
 
-p = pressure_inhomogeneous_medium(N_x, N_y, P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k)
-p_harmonic = pressure_inhomogeneous_medium(floor(Int64, N_x/x), floor(Int64, N_y/y), P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_harmonic)
-p_geometric = pressure_inhomogeneous_medium(floor(Int64, N_x/x), floor(Int64, N_y/y), P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_geometric)
-p_power = pressure_inhomogeneous_medium(floor(Int64, N_x/x), floor(Int64, N_y/y), P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_power)
+p = pressure_inhomogeneous_medium(P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k)
+p_harmonic = pressure_inhomogeneous_medium(P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_harmonic)
+p_geometric = pressure_inhomogeneous_medium(P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_geometric)
+p_power = pressure_inhomogeneous_medium(P_left, P_right, P_up, P_down, h_x, h_y, mu, h, k_power)
 
 #Скорости в СИ
 u_x = velocity_x(k, mu, p, h_x) * 10^(-6)

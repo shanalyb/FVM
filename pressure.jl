@@ -1,6 +1,4 @@
 function pressure_homogeneous_medium(
-    N_x::Int64,
-    N_y::Int64,
     P_left::Float64,
     P_right::Float64,
     P_up::Float64,
@@ -11,6 +9,8 @@ function pressure_homogeneous_medium(
     h::Float64,
     k::Array
 )
+    N_x = size(k, 1)-1
+    N_y = size(k, 2)-1
     a_old = zeros(N_x + 1, N_y + 1)
     b_old = zeros(N_x + 1, N_y + 1)
     A = zeros((N_x + 1) * (N_y + 1), (N_x + 1) * (N_y + 1))
@@ -68,8 +68,6 @@ function pressure_homogeneous_medium(
 end
 
 function pressure_inhomogeneous_medium(
-    N_x::Int64,
-    N_y::Int64,
     P_left::Float64,
     P_right::Float64,
     P_up::Float64,
@@ -80,6 +78,8 @@ function pressure_inhomogeneous_medium(
     h::Float64,
     k::Array
 )
+    N_x = size(k, 1)-1
+    N_y = size(k, 2)-1
     a_old = zeros(N_x + 1, N_y + 1)
     b_old = zeros(N_x + 1, N_y + 1)
     A = zeros((N_x + 1) * (N_y + 1), (N_x + 1) * (N_y + 1))

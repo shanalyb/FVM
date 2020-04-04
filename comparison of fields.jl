@@ -5,21 +5,23 @@ pygui(true)
 include("main_2d.jl")
 include("upscaling.jl")
 k_simple = simple_average(k, x, y)
+p_simple = simple_average(p, x, y)
 u_simple = simple_average(u_summ, x, y)
 
-p_harmonic = p_harmonic[setdiff(1:end, (size(p_harmonic, 1))), setdiff(1:end, (size(p_harmonic, 2)))]
-#p_harmonic = p_harmonic[1:end .!= size(p_geometric, 1), 1:end .!= size(p_geometric, 2)]
-p_geometric = p_geometric[setdiff(1:end, (size(p_geometric, 1))), setdiff(1:end, (size(p_geometric, 2)))]
-#p_geometric = p_geometric[1:end .!= size(p_geometric, 1), 1:end .!= size(p_geometric, 2)]
-p_power = p_power[setdiff(1:end, (size(p_power, 1))), setdiff(1:end, (size(p_power, 2)))]
-#p_power = p_power[1:end .!= size(p_power, 1), 1:end .!= size(p_power, 2)]
-p = p[setdiff(1:end, (size(p, 1)-1, size(p, 1))), setdiff(1:end, (size(p, 2)-1, size(p, 2)))]
-#p = p[1:end .!= size(p, 1), 1:end .!= size(p, 2)]
-p_simple = simple_average(p, x, y)
 
-#u_harmonic = u_harmonic[1:end .!= size(u_harmonic, 1), 1:end .!= size(u_harmonic, 2)]
-#u_geometric = u_geometric[1:end .!= size(u_geometric, 1), 1:end .!= size(u_geometric, 2)]
-#u_power = u_power[1:end .!= size(u_power, 1), 1:end .!= size(u_power, 2)]
+function equalize_the_sizes(p, p_small)
+    p_new = zeros(size(p_small, 1), size(p_small, 2))
+    for i = 1:size(p_small, 1), j = 1:size(p_small, 2)
+        p_new[i, j] = p[i, j]
+    end
+    return p_new
+end
+
+p_harmonic = equalize_the_sizes(p_harmonic, p_simple)
+p_geometric = equalize_the_sizes(p_geometric, p_simple)
+p_power = equalize_the_sizes(p_power, p_simple)
+
+u_simple = equalize_the_sizes(u_simple, u_geometric)
 
 k_difference_harmonic = abs.(k_simple - k_harmonic)
 k_difference_geometric = abs.(k_simple - k_geometric)
