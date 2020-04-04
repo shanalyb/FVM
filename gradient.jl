@@ -26,19 +26,33 @@ function grad1D(P::Array, h_x::Float64)
     U
 end
 
+#"Обрезаем" строки, столбцы
+
+
+
+
+
 function grad2D_x(P::Array, h_x::Float64)
-    N_x = size(P, 1); N_y = size(P, 2) #1-по вертикали, 2-по горизонтали
-    U_x = zeros(N_x, N_y-1)
-    for i = 1:N_x, j = 1:N_y-1
-        U_x[i, j] = (P[i, j+1] - P[i, j]) / h_x
+    N_x = size(P, 1); N_y = size(P, 2)
+    p_x = zeros(N_x - 1, N_y)
+    for i = 1:N_x-1, j = 1:N_y
+        p_x[i, j] = P[i, j]
+    end
+    U_x = zeros(N_x-1, N_y-1)
+    for i = 1:N_x-1, j = 1:N_y-1
+        U_x[i, j] = (p_x[i, j+1] - p_x[i, j]) / h_x
     end
     U_x
 end
 
 function grad2D_y(P::Array, h_y::Float64)
     N_x = size(P, 1); N_y = size(P, 2)
-    U_y = zeros(N_x-1, N_y)
-    for j = 1:N_y, i = 1:N_x-1
+    p_y = zeros(N_x, N_y - 1)
+    for i = 1:N_x, j = 1:N_y-1
+        p_y[i, j] = P[i, j]
+    end
+    U_y = zeros(N_x-1, N_y-1)
+    for j = 1:N_y-1, i = 1:N_x-1
         U_y[i, j] = (P[i+1, j] - P[i, j]) / h_y
     end
     U_y

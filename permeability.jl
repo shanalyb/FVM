@@ -1,7 +1,7 @@
 using PyCall, Statistics, PyPlot, LinearAlgebra
 pygui(true)
-N_x = 2
-N_y = 2
+N_x = 10
+N_y = 10
 r_max = 1
 sigma = 1
 k_x = 1
@@ -21,7 +21,11 @@ for i = 0:N_x, j = 0:N_y, l = 0:N_x, m = 0:N_y
         CovMatrix[k, n] = 0
     end
 end
+trans = CovMatrix - CovMatrix'
 R = sqrt(CovMatrix)
+R2 = sqrt(Symmetric(CovMatrix))
+#(E, F) = eigen(CovMatrix)
+#koren = F*sqrt.(E)*F'
 subplot(1, 2, 1)
 fig = imshow(
     R,
