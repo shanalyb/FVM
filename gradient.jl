@@ -57,3 +57,29 @@ function grad2D_y(P::Array, h_y::Float64)
     end
     U_y
 end
+
+function grad2D_x_1(P::Array, h_x::Float64)
+    N_x = size(P, 1); N_y = size(P, 2)
+    p_x = zeros(N_x - 2, N_y)
+    for i = 1:N_x-2, j = 1:N_y
+        p_x[i, j] = P[i, j]
+    end
+    U_x = zeros(N_x-2, N_y-2)
+    for i = 1:N_x-2, j = 1:N_y-2
+        U_x[i, j] = (p_x[i, j+2] - p_x[i, j]) / (2 * h_x)
+    end
+    U_x
+end
+
+function grad2D_y_1(P::Array, h_y::Float64)
+    N_x = size(P, 1); N_y = size(P, 2)
+    p_y = zeros(N_x, N_y - 2)
+    for i = 1:N_x, j = 1:N_y-2
+        p_y[i, j] = P[i, j]
+    end
+    U_y = zeros(N_x-2, N_y-2)
+    for j = 1:N_y-2, i = 1:N_x-2
+        U_y[i, j] = (P[i+2, j] - P[i, j]) / h_y
+    end
+    U_y
+end

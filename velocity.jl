@@ -1,4 +1,4 @@
-function velocity_x(k, mu, p, h_x)
+ function velocity_x(k, mu, p, h_x)
     N_x = size(p, 1) - 1
     N_y = size(p, 2) - 1
     k_0 = zeros(N_x, N_y)

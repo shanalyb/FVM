@@ -14,14 +14,14 @@ function concentration_2d(c_0::Array, h_x::Float64, h_y::Float64, u_x::Array, u_
 
         dif_c_y1 = zeros(N_x + 1, N_y + 1)
         for i = 1:N_x, j = 1:N_y
-            dif_c_y1[i, j] = dif_c_y[i, j]
+            dif_c_y1[i+1, j] = dif_c_y[i, j]
         end
 
         for i = 1:N_x, j = 1:N_y
-            c_x[i, j] = u_x[i, j] * dif_c_x1[i, j]
+            c_x[i, j] = u_x[i, j] .* dif_c_x1[i, j]
         end
         for i = 1:N_x, j = 1:N_y
-            c_y[i, j] = u_y[i, j] * dif_c_y1[i, j]
+            c_y[i, j] = u_y[i, j] .* dif_c_y1[i, j]
         end
 
         c_x1 = zeros(N_x + 1, N_y + 1)

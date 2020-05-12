@@ -92,13 +92,13 @@ function pressure_inhomogeneous_medium(
     #Неоднородная среда
     #--------------------------------
     for i = 2:size(k, 1), j = 1:size(k, 2)-1
-        a_old[i-1, j] =
-            (h_y / (k[i, j] - k[i-1, j])) * (log(k[i, j] / k[i-1, j]))
+        b_old[i-1, j] =
+            ((h_y / (k[i, j] - k[i-1, j])) * (log(k[i, j] / k[i-1, j])))^(-1)
     end
 
     for i = 1:size(k, 1)-1, j = 2:size(k, 2)
-        b_old[i, j-1] =
-            (h_x / (k[i, j] - k[i, j-1])) * (log(k[i, j] / k[i, j-1]))
+        a_old[i, j-1] =
+            ((h_x / (k[i, j] - k[i, j-1])) * (log(k[i, j] / k[i, j-1])))^(-1)
     end
     #--------------------------------
 
@@ -132,11 +132,11 @@ function pressure_inhomogeneous_medium(
     A_new = inv(A)
 
     p_old = A_new * b
-
-    n = 0
-    for j = 1:N_y+1, i = 1:N_x+1
-        n = n + 1
-        p[i, j] = p_old[n]
-    end
+    p = reshape(p_old, (N_x+1, N_y+1))
+    #n = 0
+    #for j = 1:N_y+1, i = 1:N_x+1
+    #    n = n + 1
+    #    p[i, j] = p_old[n]
+    #end
     return p
 end
